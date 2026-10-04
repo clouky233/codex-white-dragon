@@ -17,7 +17,7 @@ Add-Type -AssemblyName System.IO.Compression.FileSystem
 $portableRepository = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $portableElectron = (Resolve-Path -LiteralPath $ElectronDirectory).ProviderPath
 $portableOutput = [IO.Path]::GetFullPath($OutputDirectory)
-$portableGit = (Get-Command git -CommandType Application -ErrorAction Stop).Source
+$portableGit = (Get-Command git -CommandType Application -ErrorAction Stop | Select-Object -First 1).Source
 $portableUtf8Bom = [Text.UTF8Encoding]::new($true)
 
 function Invoke-PortableGit {
