@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self' data:; connect-src 'none'">
+  <title>Codex 白龙</title><link rel="stylesheet" href="widget.css">
+</head>
+<body>
+  <main class="widget">
+    <section class="quota-card" id="quota-bubble" aria-label="额度气泡" aria-live="polite" hidden>
+      <div id="windows" class="windows"><div class="empty">正在读取本机 Codex 账户…</div></div>
+      <p class="missing" id="missing"></p>
+      <footer><span id="updated">等待首次读取</span><div class="bubble-actions"><button id="refresh" title="刷新额度" aria-label="刷新额度">↻</button><button id="settings" title="设置和记录" aria-label="设置和记录">⚙</button><button id="hide" title="隐藏到托盘" aria-label="隐藏到托盘">−</button></div></footer>
+    </section>
+    <div class="notice" id="notice" hidden role="status"><button id="dismiss" aria-label="关闭气泡">×</button><strong id="notice-title"></strong><p id="notice-body"></p></div>
+    <div class="dragon-wrap" id="dragon-wrap"><button class="dragon idle" id="dragon" aria-label="白龙：点击查看额度，拖动移动" title="点击查看额度 · 拖动移动 · 右键菜单" aria-controls="quota-bubble" aria-expanded="false"></button></div>
+  </main>
+  <script src="widget.js"></script>
+  <script src="hit-region.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+Codex 白龙额度挂件 — 状态素材说明
+生成日期：2026-10-04
+文件：dragon-states.png
+工具：内置 image_gen.imagegen；transparent_background=true；非 API/CLI fallback。
+制作：参考原始 white-dragon-concept.png，第一轮建立 alpha，第二轮仅缩小角色与增加分格空隙。
+未使用 Python 或其他程序重画、去背景、改写像素；交付图为生成工具原文件的无损复制。
+
+图集：1536×1024 PNG，32bpp ARGB，3列×2行，每格512×512。
+顺序：
+  第1行第1格 idle / 待机
+  第1行第2格 thinking / 思考
+  第1行第3格 complete / 完成
+  第2行第1格 waiting / 等待
+  第2行第2格 low / 低额度
+  第2行第3格 pinch / 捏脸
+
+校验：
+- System.Drawing 全图逐像素读取；alpha 最小0，最大254。
+- 完全透明像素910912个，共1572864个像素；真实 alpha 已验证。
+- RGB数据在透明区域仍保留灰色底色，但 alpha=0，因此标准 PNG 合成不显示灰底。
+- 已视觉核对六个状态、白发、弯龙角、紫眼、黑白结发饰、半身及完整轮廓。
+- 所有状态可见边界（alpha>16）均在各自格内；未越格，无文字、格线或背景底板。
+- 生成式布局未严格做到像素级共同基线：第2行角色比第1行高约22px。
+  UI应使用下列局部底部中心锚点将状态对齐到统一显示锚点，不应假定六格的绘制基线相同。
+
+局部可见边界与推荐源锚点（坐标相对各自512×512格）：
+state      bounds [left,top,right,bottom]    anchor [x,y]
+idle       [72,86,458,454]                   [256,454]
+thinking   [74,87,452,454]                   [256,454]
+complete   [75,91,447,455]                   [256,455]
+waiting    [80,72,455,433]                   [256,433]
+low        [76,78,451,432]                   [256,432]
+pinch      [75,79,463,430]                   [256,430]
+例如统一目标锚点为[256,455]时，6格分别向下偏移[1,1,0,22,23,25]源像素。
+推荐CSS/object绘制时保持整体缩放相同，按每格锚点补偿；禁止拉伸比例。
+
+完整首次提示词：
+Use case: identity-preserve and background-extraction.
+Asset type: production transparent PNG sprite sheet for a Windows desktop white dragon quota widget.
+Input image 1 is the exact character identity and six expressions reference. Edit it into a clean usable transparent sprite sheet.
+Primary request: one 3-column by 2-row sprite atlas with six isolated half-body versions of the SAME chibi white dragon girl. Preserve the reference's long white hair, lavender-purple eyes, two curved ridged white dragon horns, pointed ears, curled ahoge, black-and-white knotted flower hair ornament with dangling tassel on viewer-right, pale Chinese-inspired sleeveless collar garment, dark smooth outlines, pastel lavender shading, and cute anime identity.
+State order, left-to-right top row then bottom row:
+1 idle: relaxed neutral face, both hands resting at lower edge.
+2 thinking: one hand lightly near chin, thoughtful eyes.
+3 completed: happy closed eyes, delighted smile, hands clasped.
+4 waiting: head slightly tilted, a finger near cheek, quietly expectant.
+5 low quota: tired sad lavender eyes with tiny tears, sleeves/hands together below chin.
+6 cheek pinch: the character's own two hands gently squish her own cheeks, squeezed closed eyes, puffed cute face.
+Composition: target 1536 x 1024 pixels, exactly 3 columns and 2 rows of equal 512 x 512 cells; no visible grid. Each individual sprite occupies no more than 440 x 460 pixels, centered horizontally within its own cell, full horns and hair tips inside its cell with at least 26 pixels of empty margin. All six torso baselines at local y=478 and their bottom-center anchors at local x=256, y=478. Keep character scale consistent and align head heights. All complete outlines must remain visible. No overlap between cells. No outlines touching canvas edges.
+Background: genuine alpha transparency everywhere outside the character art, including between hair strands, horns and every cell. Completely remove the reference's gray textured backdrop. Do not simulate transparency with checkerboards. No opaque rectangle, no shadow panel, no ground plane.
+Constraints: keep the same character and exact state ordering. No text, numbers, labels, frames, grid lines, watermark, extra characters or props. No gray backdrop. Clean anti-aliased alpha silhouette. 
+
+完整定向修订提示词：
+Use case: precise-object-edit. Asset: production 3x2 transparent PNG sprite atlas.
+EDIT this image, preserving all six character drawings, designs and expressions exactly. Change only the size and placement of each of its six separate sprites.
+The current image has sprites too large and touching cell edges. THIS IS THE SINGLE FIX: scale every complete sprite down to 80 percent of its current size, and center each sprite inside its own equal 512x512 cell. Exact canvas 1536x1024, three columns and two rows. Use large truly TRANSPARENT gutters around EVERY sprite, at least 45 pixels left and right and 45 pixels above horns. None of the horns, hair, fingers, clothing or accent strokes can touch or cross cell boundaries. Bottom center anchor each sprite at local (256, 468); keep all six same scale. For a 1536x1024 image, sprite bottom baselines should be y=468 for first row and y=980 for second row. Full complete character silhouettes visible with real transparent empty space on all sides.
+Keep six states in the same order: idle, thinking, happy completion, waiting, low-quota tears, self cheek pinch. Preserve white hair, white dragon horns, lavender eyes, black-white flower knot ornament on viewer right, outfit, pastel colors, chibi proportions, dark contour.
+Preserve genuine PNG alpha transparency. The gray RGB hidden under fully transparent pixels must remain invisible. No solid background, no checkerboard, no shadow backplate, no text, no grid. Do not enlarge the characters back to fill the cells. The intended result has visibly more blank transparent negative space.
+

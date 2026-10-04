@@ -1,0 +1,14 @@
+{
+  "name": "codex-white-dragon",
+  "productName": "Codex White Dragon",
+  "version": "0.1.2",
+  "private": true,
+  "type": "module",
+  "main": "src/main.cjs",
+  "description": "Windows 桌面白龙订阅额度挂件",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test tests/*.test.mjs tests/*.test.cjs"
+  },
+  "devDependencies": { "electron": "44.5.1" }
+}

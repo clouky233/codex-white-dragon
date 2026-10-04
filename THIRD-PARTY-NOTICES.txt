@@ -1,0 +1,17 @@
+Design and feature reference
+MeteorNOX / DeepSeek-Balance-Whale-Widget
+https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget
+main 770d3f55ff40284eb244fff33fc9ed4654be8a45
+For-Codex 5a36d6442d272cd7fea255206f2abcd697a87563
+Upstream code: MIT, Copyright (c) 2026 MeteorNOX.
+Upstream art/audio: excluded from MIT, no relicensing grant. None bundled here.
+The new application uses independently authored modules, not the upstream source tree.
+
+Runtime
+Electron 44.5.1: MIT. The Windows bundle retains LICENSE.electron.txt and LICENSES.chromium.html.
+Electron includes Chromium, Node.js and their applicable third-party licenses.
+
+White-dragon artwork
+User-provided concept reference; transparent state atlas produced through built-in image_gen.
+See assets/ASSET-NOTES.txt for prompts and verification. No claim of exclusive character rights.
+Sound is synthesized by this application; no upstream recordings are used.

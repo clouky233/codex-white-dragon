@@ -1,0 +1,47 @@
+Codex 白龙额度挂件：上游只读审核（2026-10-04）
+
+审核范围和结论
+已只读 clone https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget 到 work/reference，检出 For-Codex；没有执行该仓库脚本、测试、安装器或安装依赖。两分支均未找到 AGENTS.md。结果依据源码和仓库文档，文档所述实机通过不作为本机实测证明。
+建议首版采用独立瘦 Electron 客户端：官方 app-server 只读额度 + 按账号匹配的本地 session 数字事件 + 自有白龙素材。保留上游设计参考署名；若后续复制实质代码，应同时附 MIT 版权和许可。
+原因：main 是 DSH 插件不可直接运行于 Codex；For-Codex 已有大量窗口/交互能力，但其服务、界面、安装管理仍与多厂商 API 钱包、金额账本、汇率、supervisor 耦合。当前目标是单账号订阅窗口，迁入这些功能反而增加凭据与窗口复杂度。For-Codex 的真实订阅端到端验证不足，而本次 root 已完成官方只读接口同账号验证。
+
+版本
+main: 770d3f55ff40284eb244fff33fc9ed4654be8a45，package dsh-whale-widget 0.3.18。
+For-Codex: 5a36d6442d272cd7fea255206f2abcd697a87563，package api-balance-whale 0.3.0；README 发布名 Codex v0.3(fixed)。与交接快照相同。
+
+授权与依赖
+两分支代码/文档 MIT，Copyright (c) 2026 MeteorNOX。PROVENANCE 对素材单独声明：图片、GIF、音效不属于 MIT，仅原样随插件提供，不授予再许可。白龙项目不复制该 assets 美术与音频。
+For-Codex package/lock 本身没有 npm 运行依赖，要求 Node >=24；内置 smol-toml 1.8.0 为 BSD-3-Clause；可选安装器另外下载 Electron 44.3.0。安装器先 npm --ignore-scripts 再明确调用 electron/install.js，所以不是“完全不执行依赖脚本”。这些安装器没有运行。
+
+已存在（上游源码能力，尚未在本机运行）
+- main：拖动/边缘吸附/翻转/按压回弹、气泡点击序列与加权内容、字体/颜色/模块布局、自定义角色/图片、音频导入裁剪预览、音量/完成提示、DSH 提问及授权等待提醒、历史账本趋势、多厂商余额。
+- For-Codex：Electron 透明独立工具窗口、Windows 跟随和原生 region/穿透、位置记忆、托盘；大量上述交互设置；本地 IPC；订阅/API 分页；session 完成通知与 token 统计。
+- 会话监控：task_started/task_complete、turn_started/turn_completed、token_count 累计差分、去重、取消/错误、子代理标识、fork 历史过滤、文件增量扫描、晚到子任务更新等。参考 runtime/session-monitor.mjs、service.mjs、turn-journal.mjs。
+- 订阅：runtime/insights-worker.mjs 从 session token_count.rate_limits 快照提取窗口；runtime/insights.mjs 检查 auth 模式及修改时间。
+
+要改造（本次需求）
+- 数据源改为 account/read + account/rateLimits/read，处理 account/rateLimits/updated。上游没有此只读 app-server 接入。
+- 窗口按 windowDurationMins 解释而不按 primary/secondary 命名，也不能限定必须同时有两个；上游只接收 300、10080 分钟。
+- 准确区分 unavailable/offline/stale/reset；上游快照使用 15 分钟或已过 reset 即 stale；这仍是本地历史，不是“刷新读取服务器额度”。
+- 读取本地 session 时严格匹配 session_meta.creator_account_id；上游 insights 聚合器没有逐文件账号匹配，仅与 auth.json mtime 比较，不能保证旧/异账号文件不混入。
+- 主任务 token 与子代理范围明确说明；本轮百分比只称“任务期间观察到的账号额度变化”，重置、并发和迟到时不归因为精确任务扣减。
+- 替换白龙自有素材和原创声音；金额低余额/日预算改为订阅剩余阈值。
+- 保存历史仅保留数字和时间，不留聊天内容、标题、凭据或机器路径。
+
+待验证
+- 独立 app-server 不自动订阅现有 Codex Desktop 所有线程，任务/等待/审批接入不能凭官方事件名宣称已实现。
+- 真实 session 生命周期、同一账号隔离、重复累计值、晚到 token、fork/subagent 历史、重新启动去重。
+- 窗口透明/点击穿透/拖动/缩放/多屏边缘/置顶，尤其 Windows 跟随功能。For-Codex docs/FEEDBACK-FIX-0.3.md 记录过闪动、消失、白块、光标及区域故障；某些日常场景仍留验收项。
+- 订阅真实验证：docs/DASHBOARD-B.md 明言没有真实订阅账号端到端验证、自动 UI 为合成样本。不可把其 238 项通过宣传为白龙或本机测试结果。
+- 无额度窗口、单窗口、多窗口、多 limitId、账号变更、离线、窗口重置等边界。
+
+安全观察（非完整安全审计）
+Electron renderer 使用 contextIsolation:true、nodeIntegration:false、sandbox:true；主窗口将权限留在 preload/主进程。IPC 是命名管道/Unix socket，并有随机 token、恒时比较、路由白名单和长度限制。外链仅 http/https、拒绝用户名密码。素材导入存在单独格式/路径守卫。
+运行时仍读取 auth.json/config、保留 IPC token、使用可配置外部余额接口和公开汇率接口；共享网吧环境不宜把这套账户/账本配置一并继承。本次瘦客户端应只向 Codex 官方 sidecar 请求账户/额度，renderer 不获凭据，日志/打包仅收自有成果。
+
+本次独立会话观察模块的验证补充
+实现文件：outputs/Codex-Dragon-Widget/src/sessions.mjs；测试文件：tests/sessions.test.mjs。
+16 项测试通过：启动不重放、累计值去重、缺基线未知、counter回退、迟到更新、取消/错误区分、retry、账号/子代理排除、partial/truncation、活动恢复、超出尾部的长任务恢复、重置/旧快照、并发归因、迟到旧轮counter、新额度刷新非阻塞且幂等、刷新超时、没有counter不伪造零。
+本机会话日志验证了账号字段、主会话来源和 Codex Desktop originator 的识别。普通尾部扫描可能不包含 task_started，因此模块在最近且匹配账号的文件里做受限向前生命周期查找（每文件最多约 8 MiB，单次发现总预算约 12 MiB）。已验证活动任务恢复及启动历史通知不重播。未取得该轮开始前完整计数基线时，tokens 保持 unknown，不把 session 累计总量当作本轮用量。
+完成通知等待 2 秒用于迟到 counter，再执行 refreshQuota 并最多等待 15 秒；此时继续处理其他任务事件。配额差异可核验时显示账号已用上升百分点，并保留并发、其他设备、舍入与延迟限制。没有新 observedAt、stale/offline、重置或数值回退均不给出精确逐轮百分比。
+没有读取或输出用户/助手正文、工具响应正文、真实凭据或账号标识到报告/通知；只保留生命周期、数字和时间。日志文件字节需在本地暂存解析，不向外传输。

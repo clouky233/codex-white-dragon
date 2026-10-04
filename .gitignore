@@ -1,0 +1,46 @@
+# Dependencies and generated builds
+node_modules/
+build/
+dist/
+out/
+release/
+releases/
+coverage/
+.cache/
+
+# Local account state, credentials, and application data
+.codex/
+user-data/
+userdata/
+AppData/
+CodexWhiteDragon/
+auth.json
+auth-*.json
+settings.json
+history.json
+credentials.json
+.env
+.env.*
+!.env.example
+
+# Temporary work, captures, logs, and generated output
+work/
+outputs/
+tmp/
+temp/
+*.log
+*.tmp
+*.bak
+*.old
+/*.tests.json
+/*.geometry.json
+/*.error.txt
+/capture*.png
+/capture*.png.json
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Source assets, tests, docs, and package-lock.json are intentionally retained.
