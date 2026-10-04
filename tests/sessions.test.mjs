@@ -153,8 +153,7 @@ test('completion refreshes quota once, displays account delta and observes new t
   await pause(); assert.equal(refreshCalls, 1); assert.equal(f.notices.length, 0);
   await f.append([start('second')]); assert.equal(f.monitor.snapshot.activeTurns, 1);
   finishRefresh(); await pause();
-  assert.equal(f.notices.length, 1); assert.match(f.notices[0].body, /账号已用上升 1 个百分点/);
-  assert.match(f.notices[0].body, /可能包含其他会话/);
+  assert.equal(f.notices.length, 1); assert.match(f.notices[0].body, /账号已用上升 1 个百分点。$/);
 });
 
 test('a stalled quota refresh has a bounded wait and unchanged observations are explained', async t => {

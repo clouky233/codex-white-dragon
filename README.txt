@@ -1,4 +1,4 @@
-Codex 白龙额度挂件 0.1.2（Windows x64）
+Codex 白龙额度挂件 0.1.3（Windows x64）
 
 如何使用
 安装后双击桌面“Codex 白龙”，或开始菜单中的同名快捷方式。
@@ -64,3 +64,5 @@ https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget
 
 0.1.1已修复按住拖动时窗口变长、透明空白挡点击的问题。白龙与卡片外的空白现在由Windows原生窗口区域直接透点，详见docs/FIX-0.1.1.txt。
 0.1.2改为点击查看额度，移除桌面上的底部说明、额度标题/账号提示和品牌文字，以及设置中的指定警告与归因说明。详见docs/FIX-0.1.2.txt。
+
+0.1.3精简任务完成气泡，移除额度数字后面的附加说明。详见docs/FIX-0.1.3.txt。

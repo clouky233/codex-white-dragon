@@ -38,7 +38,7 @@ export function compareQuota(before, after) {
     changes.push({ id: next.id, label: next.label, usedPercentChange: Math.round((next.usedPercent - previous.usedPercent) * 100) / 100,
       observedFrom: before.observedAt, observedTo: after.observedAt, resetsAt: next.resetsAt });
   }
-  return { changes, note: changes.length ? '仅为期间观察到的账号配额变化，可能包含其他会话或设备，并受舍入及更新延迟影响。' : reset ? '额度窗口已重置或数值回退，未计算本轮变化。' : '没有可比较的相同额度窗口。' };
+  return { changes, note: changes.length ? '' : reset ? '额度窗口已重置或数值回退，未计算本轮变化。' : '没有可比较的相同额度窗口。' };
 }
 
 /**

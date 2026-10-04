@@ -1,6 +1,6 @@
 # Codex 白龙
 
-一个基于 Electron 的 Windows 桌面白龙挂件，用气泡查看本机 Codex 订阅额度，并在满足账号绑定条件时提示任务完成。当前版本为 **0.1.2**，属于非官方工具，与 OpenAI 无隶属关系。
+一个基于 Electron 的 Windows 桌面白龙挂件，用气泡查看本机 Codex 订阅额度，并在满足账号绑定条件时提示任务完成。当前版本为 **0.1.3**，属于非官方工具，与 OpenAI 无隶属关系。
 
 - 平时只显示白龙。点击会捏脸并打开额度气泡，5 秒后收起；再次点击重新计时。
 - 悬停在额度气泡上暂停关闭，移开后重新计时 5 秒。拖动只移动角色，不弹出气泡。
@@ -31,4 +31,4 @@ npm test
 
 设置和完成记录保存在当前用户的 `%APPDATA%\CodexWhiteDragon`，登录由本机 Codex 管理。挂件不直接读取 `auth.json` 或 Cookie，不执行推理、重置额度或付费操作。设置中的通知气泡停留时间与点击查看额度的固定 5 秒分别控制。
 
-更多用法与限制见 [README.txt](README.txt)，版本变更见 [0.1.2 说明](docs/FIX-0.1.2.txt)，验证记录与设计取舍见 [docs](docs/)。运行时、参考项目和美术资源的来源与许可说明见 [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt)。
+更多用法与限制见 [README.txt](README.txt)，版本变更见 [0.1.3 说明](docs/FIX-0.1.3.txt)，验证记录与设计取舍见 [docs](docs/)。运行时、参考项目和美术资源的来源与许可说明见 [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt)。
