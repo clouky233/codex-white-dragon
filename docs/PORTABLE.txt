@@ -1,0 +1,24 @@
+﻿Codex 白龙 — Windows x64 便携版
+
+下载与运行
+在项目 GitHub Releases 下载 CodexWhiteDragon-v版本号-Windows-x64.zip。
+将整个 ZIP 解压后，双击 CodexWhiteDragon 文件夹中的 CodexWhiteDragon.exe。
+不需要 Node.js 或安装程序；仍需本机已安装并登录 Codex 才能读取额度。
+点击白龙查看额度，5秒后收起；悬停暂停关闭，拖动只移动角色。
+设置可从气泡齿轮或右键白龙打开。退出请使用白龙或系统托盘的右键菜单。
+用户设置和记录保存在 %APPDATA%\CodexWhiteDragon；本包不设置开机启动。
+便携版与安装版共享本机数据，且同时只运行一个实例。若已有白龙运行，双击便携版会显示已有实例；切换版本前请从托盘退出旧实例。
+可用 PowerShell 的 Get-FileHash -Algorithm SHA256 校验 ZIP，与随附 SHA256SUMS 文件比较。
+
+从源码打包
+需要 Windows PowerShell 5.1 或 PowerShell 7、Git，以及与 package.json 完全一致的官方 Windows x64 Electron 解压目录。
+先提交拟发布的源码，再在项目目录执行以下命令（参数路径可含空格）：
+
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ".\tools\package-portable.ps1" -ElectronDirectory "D:\Build Tools\electron\dist" -OutputDirectory ".\dist"
+
+脚本从 git HEAD 读取版本，使用 git archive 仅导出 package.json、src、assets 和 THIRD-PARTY-NOTICES.txt。
+未提交的源码修改不会进入运行包。包内不含 Git、node_modules、开发工具、测试目录、安装或卸载脚本。
+Electron/Chromium 许可文件保留；BUILD-INFO.txt 记录应用版本、源码提交与 Electron 版本。
+输出包含单一 CodexWhiteDragon 顶层目录的 ZIP，以及同名版本的 SHA256SUMS 校验文件。
+重名发布文件会导致脚本停止；独立的 .portable-stage-GUID 目录留在输出目录供核查，脚本不删除或覆盖现有目录。
+ZIP条目顺序与时间固定；相同源码提交、运行时和 PowerShell/.NET 工具链可重建相同压缩包。

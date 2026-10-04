@@ -8,6 +8,10 @@
 - 支持透明区域点击穿透、边缘吸附、缩放、翻转、置顶、六种表情和轻微动态效果。
 - 提供任务完成气泡、合成提示音、本地完成记录，以及本次运行的额度趋势。
 
+Windows 用户可从 [GitHub Releases](https://github.com/clouky233/codex-white-dragon/releases) 下载 `CodexWhiteDragon-v版本号-Windows-x64.zip`。完整解压后，双击其中的 `CodexWhiteDragon.exe` 即可运行，无需安装 Node.js 或执行安装程序；读取额度仍需本机已安装并登录 Codex。退出请使用白龙或系统托盘的右键菜单。下载校验与自行打包方法见 [便携版说明](docs/PORTABLE.txt)。
+
+便携版与安装版共享 `%APPDATA%\CodexWhiteDragon` 数据，同时只运行一个实例。已有白龙运行时，再次启动会显示已有实例；切换版本前请先从托盘退出旧实例。
+
 开发运行需要 **Windows x64、Node.js 22.12 或更高版本**，以及已安装并登录的 Codex。应用会尝试找到本机 Codex 可执行文件；也可通过环境变量 `CODEX_DRAGON_CODEX_PATH` 指定位置。在项目目录运行：
 
 ```powershell
